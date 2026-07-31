@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(180deg,#fff8f6 0%,#fff0f5 45%,#fff7f2 100%);
+      overflow-x:hidden;
+      color:#6f5560;
+    }
+
+    /* Floating petals */
+    .petal{
+      position:fixed;
+      top:-20px;
+      font-size:20px;
+      opacity:.7;
+      animation:fall linear infinite;
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .petal:nth-child(1){left:10%;animation-duration:14s;}
+    .petal:nth-child(2){left:25%;animation-duration:11s;}
+    .petal:nth-child(3){left:45%;animation-duration:16s;}
+    .petal:nth-child(4){left:70%;animation-duration:13s;}
+    .petal:nth-child(5){left:88%;animation-duration:15s;}
+
+    @keyframes fall{
+      from{
+        transform:translateY(-10vh) rotate(0deg);
+      }
+      to{
+        transform:translateY(110vh) rotate(360deg);
+      }
+    }
+
+    /* Hero Section */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 24px;
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-content{
+      max-width:900px;
+      text-align:center;
+      position:relative;
+      width:100%;
+    }
+
+    /* Scratch Card Container for Hero Wish */
+    .hero-scratch-wrapper {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(255,182,193,0.25);
+      border: 2px solid rgba(255,220,228,0.9);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-secret {
+      padding: 40px 24px;
+    }
+
+    #heroCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      z-index: 5;
+      touch-action: none;
+    }
+
+    .top-text{
+      font-size:.95rem;
+      font-weight:600;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:#d17a95;
+      margin-bottom:22px;
+    }
+
+    .title{
+      font-family:'Great Vibes',cursive;
+      font-size:6rem;
+      line-height:1;
+      color:#ff6f91;
+      text-shadow:0 4px 12px rgba(255,111,145,.18);
+    }
+
+    .name{
+      display:block;
+      margin-top:10px;
+      font-size:4rem;
+      font-weight:700;
+      font-family:'Poppins',sans-serif;
+      letter-spacing:2px;
+      color:#ff4f81;
+    }
+
+    .subtitle{
+      margin:28px auto 0;
+      max-width:640px;
+      font-size:1.12rem;
+      line-height:1.9;
+      color:#7a5d67;
+    }
+
+    .highlight{
+      color:#ff6f91;
+      font-weight:600;
+    }
+
+    .music-note{
+      margin-top:26px;
+      font-size:.95rem;
+      color:#c98aa0;
+    }
+
+    .scroll-indicator{
+      margin-top:48px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      color:#d17a95;
+      font-size:.9rem;
+      animation:bounce 2s infinite;
+    }
+
+    .mouse{
+      width:26px;
+      height:42px;
+      border:2px solid #f2b7c8;
+      border-radius:20px;
+      position:relative;
+    }
+
+    .mouse::before{
+      content:"";
+      position:absolute;
+      top:8px;
+      left:50%;
+      width:4px;
+      height:8px;
+      border-radius:999px;
+      background:#ff9fbd;
+      transform:translateX(-50%);
+      animation:scroll 1.6s infinite;
+    }
+
+    @keyframes scroll{
+      0%{opacity:0;transform:translate(-50%,0);}
+      40%{opacity:1;}
+      100%{opacity:0;transform:translate(-50%,12px);}
+    }
+
+    /* Preview next section */
+    .preview{
+      padding:70px 24px 90px;
+      position:relative;
+      z-index:2;
+    }
+
+    .preview-card{
+      max-width:980px;
+      margin:0 auto;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(14px);
+      border:1px solid rgba(255,220,228,.9);
+      border-radius:34px;
+      padding:42px;
+      box-shadow:0 18px 40px rgba(255,182,193,.16);
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .preview h2{
+      font-size:2rem;
+      color:#ff6f91;
+      margin-bottom:14px;
+    }
+
+    .preview p{
+      line-height:1.9;
+      color:#6f5560;
+    }
+
+    .preview-image{
+      border-radius:26px;
+      overflow:hidden;
+      min-height:260px;
+      background:linear-gradient(135deg,#ffdbe6,#fff3f7);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.6);
+    }
+
+    .preview-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .continue-btn{
+      margin-top:28px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:16px 30px;
+      border:none;
+      border-radius:999px;
+      background:linear-gradient(135deg,#ff9fbd,#ffc7d8);
+      color:white;
+      font-size:1rem;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 12px 26px rgba(255,159,189,.28);
+      transition:all .3s ease;
+    }
+
+    .continue-btn:hover{
+      transform:translateY(-3px) scale(1.03);
+      box-shadow:0 16px 32px rgba(255,159,189,.38);
+    }
+
+    @keyframes bounce{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(6px);}
+    }
+
+    @media(max-width:768px){
+      .title{
+        font-size:4.2rem;
+      }
+
+      .name{
+        font-size:2.6rem;
+      }
+
+      .subtitle{
+        font-size:1rem;
+      }
+
+      .preview-card{
+        grid-template-columns:1fr;
+        padding:30px 24px;
+      }
+
+      .preview-image{
+        min-height:220px;
+      }
+    }
+
+    @media(max-width:480px){
+      .title{
+        font-size:3.4rem;
+      }
+
+      .name{
+        font-size:2.1rem;
+        letter-spacing:1px;
+      }
+
+      .top-text{
+        font-size:.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<audio id="bgMusic" autoplay loop>
+        <source src="music/count-on-me.mp3" type="audio/mpeg">
+    </audio>
+  <div class="petal">🌸</div>
+  <div class="petal">💖</div>
+  <div class="petal">🌷</div>
+  <div class="petal">💗</div>
+  <div class="petal">🌸</div>
+
+  <section class="hero">
+    <div class="hero-content">
+       <div class="scratch-container">
+      <h3 style="color: #ff6f91; font-size: 1.4rem; margin-bottom: 8px;">✨ WOW! It's really u Sowji Darling ✨</h3>
+      <!-- Scratch Card Box hiding the wished content -->
+      <div class="hero-scratch-wrapper">
+        <canvas id="heroCanvas"></canvas>
+        
+       
+
+          <div class="title">
+            Happy Birthday
+            <span class="name" id="userName">SOWJANYA</span>
+          </div>
+
+          <p class="subtitle">
+            Today the world feels a little softer, brighter, and more beautiful,
+            because it is the birthday of someone truly <span class="highlight">special</span> 💖
+            <br /><br />
+            I hope this year wraps you in endless smiles, gentle moments,
+            exciting adventures, and all the love your heart deserves 🌸✨
+          </p>
+
+          <div class="music-note">🎵 Keep the music on… this journey has only just begun 🎵</div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <div class="mouse"></div>
+        <span>Scroll down for your first surprise</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="preview" id="preview">
+    <div class="preview-card">
+      <div>
+        <h2>A Little Something Awaits 💌</h2>
+        <p>
+          Before we dive into all the memories, photos, and sweet surprises,
+          I wanted this moment to feel calm, dreamy, and completely yours.
+          The next part of this journey is where the real story begins —
+          filled with smiles, tiny moments, and all the reasons you are so unforgettable 🌷
+        </p>
+
+        <button class="continue-btn"
+                onclick="window.location.href='memory2.html'">
+          Continue the Journey 💖
+        </button>
+      </div>
+
+      <div class="preview-image">
+        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=900&q=80"
+             alt="Cute pink birthday aesthetic">
+      </div>
+    </div>
+  </section>
+
+  <!-- 🎵 Background Music -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const name = localStorage.getItem('realName') || 'SOWJANYA';
+    document.getElementById('userName').textContent = name;
+
+    // Autoplay fallback for browsers
+    const music = document.getElementById('bgMusic');
+
+    document.body.addEventListener('click', () => {
+      music.play().catch(() => {});
+    }, { once:true });
+
+    // Scratch Card setup for Hero section
+    const canvas = document.getElementById('heroCanvas');
+    const ctx = canvas.getContext('2d');
+    const wrapper = document.querySelector('.hero-scratch-wrapper');
+
+    function initScratchCanvas() {
+      canvas.width = wrapper.offsetWidth;
+      canvas.height = wrapper.offsetHeight;
+
+      // Fill background layer for scratching
+      ctx.fillStyle = '#ffb6c1';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Add overlay title text
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 22px Poppins, sans-serif';
+      ctx.fillText('✨ Scratch to reveal your surprise! 🪄 ✨', canvas.width / 2, canvas.height / 2);
+    }
+
+    // Call size initialization on load & resize
+    window.addEventListener('load', initScratchCanvas);
+    window.addEventListener('resize', initScratchCanvas);
+
+    let isScratching = false;
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function scratch(e) {
+      if (!isScratching) return;
+      const pos = getPos(e);
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, 32, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    canvas.addEventListener('mousedown', (e) => { isScratching = true; scratch(e); });
+    canvas.addEventListener('mouseup', () => isScratching = false);
+    canvas.addEventListener('mousemove', scratch);
+
+    canvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); }, { passive: true });
+    canvas.addEventListener('touchend', () => isScratching = false);
+    canvas.addEventListener('touchmove', scratch, { passive: true });
+  </script>
+
+</body>
+</html>

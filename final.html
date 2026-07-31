@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday & Your Official Treat Pass 🎂🎟️</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@600;700&family=Allura&display=swap" rel="stylesheet">
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #140914;
+      background-image: 
+        radial-gradient(rgba(255, 79, 129, 0.2) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      color: #fff0f5;
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* BIRTHDAY HEADER */
+    .bday-title {
+      font-family: 'Allura', cursive;
+      font-size: 4.8rem;
+      color: #ff4f81;
+      text-shadow: 0 0 25px rgba(255, 79, 129, 0.7);
+      line-height: 1.1;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: #ffb3c6;
+      margin-bottom: 30px;
+    }
+
+    /* EDITED VIDEO SECTION */
+    .video-card {
+      background: rgba(40, 20, 35, 0.9);
+      border: 2px solid rgba(255, 126, 179, 0.4);
+      border-radius: 24px;
+      padding: 16px;
+      box-shadow: 0 15px 35px rgba(255, 79, 129, 0.25);
+      margin-bottom: 35px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      max-height: 380px;
+      display: block;
+      border-radius: 16px;
+      object-fit: cover;
+    }
+
+    .video-caption {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: #ff7eb3;
+      margin-top: 12px;
+    }
+
+    /* VIP OFFICIAL TREAT PASS TICKET */
+    .ticket-card {
+      background: linear-gradient(135deg, rgba(50, 20, 45, 0.95), rgba(30, 10, 25, 0.95));
+      border: 2px dashed #ff4f81;
+      border-radius: 24px;
+      padding: 30px 22px;
+      box-shadow: 0 20px 50px rgba(255, 79, 129, 0.3);
+      position: relative;
+      margin-bottom: 35px;
+      text-align: left;
+    }
+
+    .ticket-header-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed rgba(255, 126, 179, 0.3);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .ticket-title {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ff7eb3;
+      font-weight: 700;
+    }
+
+    .ticket-badge {
+      background: linear-gradient(135deg, #ff4f81, #ff7eb3);
+      color: #fff;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      box-shadow: 0 0 10px rgba(255, 79, 129, 0.5);
+    }
+
+    .pass-details-title {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: #ff4f81;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .details-grid {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 126, 179, 0.2);
+    }
+
+    .detail-item {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      color: #ff7eb3;
+      font-weight: 600;
+    }
+
+    .detail-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .detail-item span {
+      color: #fff0f5;
+      font-weight: 400;
+    }
+
+    .romantic-note {
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      line-height: 1.5;
+      color: #ffe3ec;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .funny-warning {
+      background: rgba(255, 79, 129, 0.12);
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size: 0.92rem;
+      color: #ffb3c6;
+      line-height: 1.5;
+      border: 1px solid rgba(255, 126, 179, 0.3);
+      text-align: center;
+    }
+
+    /* ACTION BUTTONS */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 340px;
+      padding: 16px 28px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .whatsapp-btn {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(37, 211, 102, 0.5);
+    }
+
+    .restart-btn {
+      background: transparent;
+      border: 2px solid #ff4f81;
+      color: #ff4f81;
+    }
+
+    .restart-btn:hover {
+      background: rgba(255, 79, 129, 0.15);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- HAPPY BIRTHDAY HEADER -->
+    <h1 class="bday-title">Happy Birthday, My Queen! 🎂👑✨</h1>
+    <p class="subtitle">Another year older, cuter, and officially trapped with me!</p>
+
+    <!-- EDITED VIDEO SECTION -->
+    <div class="video-card">
+      <div class="video-wrapper">
+        <video controls autoplay loop muted playsinline>
+          <source src="videos/special_video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="video-caption">🎥 Press play to watch your starring moment! ❤️</div>
+    </div>
+
+    <!-- OFFICIAL TREAT PASS & DETAILS CARD -->
+    <div class="ticket-card">
+      <div class="ticket-header-strip">
+        <div class="ticket-title">🎟️ OFFICIAL VIP TREAT PASS</div>
+        <div class="ticket-badge">STATUS: SIGNED & SEALED 💋</div>
+      </div>
+
+      <div class="pass-details-title">📋 Contract Summary & Agreed Terms:</div>
+
+      <div class="details-grid">
+        <div class="detail-item">🗓️ When: <span>As selected in the quiz!</span></div>
+        <div class="detail-item">📍 Venue Vibe: <span>Special Date Outing</span></div>
+        <div class="detail-item">🍕 Menu Selection: <span>All your favorite cravings!</span></div>
+        <div class="detail-item">💋 Mandatory Tax: <span>Unlimited Hugs, Kisses & Cuddles</span></div>
+      </div>
+
+      <p class="romantic-note">
+        "Happy Birthday my favourite person! Thank you for bringing so much light, color, and laughter into my life."
+      </p>
+
+      <div class="funny-warning">
+        😜 <strong>Official Lifetime Clause:</strong><br>
+        Your signature is officially on the contract! <em>I am stuck with you, and you are stuck with me forever.</em> No refunds, no returns, and strictly no backing out allowed! 🤗💕
+      </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="btn-group">
+      <!-- WhatsApp Message Button -->
+      <a href="https://wa.me/?text=Happy%20Birthday%20to%20me!%20%F0%9F%8E%82%F0%9F%A4%A9%20I%20officially%20signed%20my%20VIP%20Treat%20Pass.%20Now%20take%20me%20out%20for%20my%20party!" 
+         target="_blank" 
+         class="action-btn whatsapp-btn">
+        💬 Claim Party on WhatsApp 📲
+      </a>
+
+      <a href="index.html" class="action-btn restart-btn">
+        🔄 Replay the Magic
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Celebratory Confetti Burst
+    window.onload = function() {
+      const duration = 4 * 1000;
+      const animationEnd = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 6,
+          angle: 60,
+          spread: 60,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 6,
+          angle: 120,
+          spread: 60,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < animationEnd) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    };
+  </script>
+</body>
+</html>

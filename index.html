@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise Awaits 🎁</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti for the Gift Box explosion -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            overflow:hidden;
+            font-family:'Poppins',sans-serif;
+            background:linear-gradient(-45deg,#12002f,#2b1055,#5f0a87,#ff0080);
+            background-size:400% 400%;
+            animation:bgMove 12s ease infinite;
+            position:relative;
+            padding:20px;
+        }
+
+        @keyframes bgMove{
+            0%{background-position:0% 50%;}
+            50%{background-position:100% 50%;}
+            100%{background-position:0% 50%;}
+        }
+
+        /* Floating glowing circles */
+        .bubble{
+            position:absolute;
+            border-radius:50%;
+            background:rgba(255,255,255,0.12);
+            box-shadow:0 0 25px rgba(255,255,255,0.4);
+            animation:float 10s linear infinite;
+            pointer-events: none;
+        }
+
+        .bubble:nth-child(1){ width:120px;height:120px;left:10%;top:80%; animation-duration:12s; }
+        .bubble:nth-child(2){ width:80px;height:80px;left:80%;top:90%; animation-duration:9s; }
+        .bubble:nth-child(3){ width:150px;height:150px;left:70%;top:70%; animation-duration:15s; }
+        .bubble:nth-child(4){ width:60px;height:60px;left:20%;top:95%; animation-duration:8s; }
+
+        @keyframes float{
+            from{transform:translateY(0) rotate(0deg);opacity:0.8;}
+            to{transform:translateY(-120vh) rotate(360deg);opacity:0;}
+        }
+
+        /* GIFT BOX STYLING */
+        .gift-box-wrapper {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 20;
+        }
+
+        .gift-box-wrapper:hover {
+            transform: scale(1.08);
+        }
+
+        .gift-emoji {
+            font-size: 7rem;
+            filter: drop-shadow(0 0 20px rgba(255, 79, 216, 0.8));
+            animation: pulseGift 1.8s infinite ease-in-out;
+        }
+
+        @keyframes pulseGift {
+            0% { transform: scale(1) rotate(0deg); }
+            15% { transform: scale(1.1) rotate(-6deg); }
+            30% { transform: scale(1.1) rotate(6deg); }
+            45% { transform: scale(1.1) rotate(-6deg); }
+            60% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .tap-hint {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: #ffe3ec;
+            margin-top: 15px;
+            text-shadow: 0 0 10px #ff4fd8;
+            animation: blink 1.5s infinite alternate;
+        }
+
+        @keyframes blink {
+            from { opacity: 0.6; }
+            to { opacity: 1; }
+        }
+
+        /* MAIN CONTENT CONTAINER (Hidden initially) */
+        .container{
+            width:90%;
+            max-width:700px;
+            text-align:center;
+            padding:45px 30px;
+            border-radius:30px;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter:blur(15px);
+            border:1px solid rgba(255,255,255,0.25);
+            box-shadow:0 0 50px rgba(255,0,128,0.45);
+            position:relative;
+            z-index:10;
+            display: none; /* Revealed on click */
+            animation: popOpen 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popOpen {
+            from { opacity: 0; transform: scale(0.3) translateY(50px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        h1{
+            font-family:'Pacifico',cursive;
+            font-size:3rem;
+            color:#ffffff;
+            text-shadow:0 0 10px #ff4fd8, 0 0 25px #ff0080;
+            margin-bottom:20px;
+            line-height: 1.2;
+        }
+
+        p{
+            color:#f3eaff;
+            font-size:1.15rem;
+            line-height:1.8;
+            margin-bottom:30px;
+            font-weight:300;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:16px 42px;
+            border-radius:50px;
+            text-decoration:none;
+            font-size:1.1rem;
+            font-weight:700;
+            color:#fff;
+            background:linear-gradient(135deg,#ff0080,#ff7b00);
+            box-shadow:0 0 20px rgba(255,0,128,0.6);
+            transition:all 0.35s ease;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .btn:hover{
+            transform:translateY(-4px) scale(1.05);
+            box-shadow:0 0 35px rgba(255,0,128,0.9), 0 0 55px rgba(255,123,0,0.7);
+        }
+
+        @media(max-width:600px){
+            h1{font-size:2.2rem;}
+            p{font-size:1rem;}
+            .gift-emoji { font-size: 5.5rem; }
+            .container{padding:35px 20px;}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles Background -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <!-- INITIAL GIFT BOX STAGE -->
+    <div class="gift-box-wrapper" id="giftStage" onclick="openSurprise()">
+        <div class="gift-emoji">🎁</div>
+        <div class="tap-hint">✨ Tap the gift box to unwrap your surprise! ✨</div>
+    </div>
+
+    <!-- REVEALED CARD STAGE -->
+    <div class="container" id="contentCard">
+        <h1>You Unlocked It! 💖</h1>
+
+        <p>
+            ⚠️ <strong>Warning:</strong> Open when you are alone! 😍<br>
+            Someone spent time creating this journey just for you ✨<br>
+
+            <span style="color:#fff2a8; font-weight:600; font-size:1.2rem;">
+                Are you ready darling? 👀💝
+            </span>
+        </p>
+
+        <a href="login.html" class="btn">Begin the Journey 🚀</a>
+    </div>
+
+    <script>
+        function openSurprise() {
+            // Hide the gift box
+            document.getElementById('giftStage').style.display = 'none';
+
+            // Show the surprise card
+            document.getElementById('contentCard').style.display = 'block';
+
+            // Trigger explosive confetti burst
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.5 }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
