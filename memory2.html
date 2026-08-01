@@ -1099,12 +1099,23 @@
     document.getElementById('heroTitle').innerText = `${name}'s Memory Board ✨`;
 
     // Dynamic Days Counter (Set your start date below)
-    const startDate = new Date('2023-01-01'); // Change to your preferred date!
-    const now = new Date();
-    const diffTime = Math.abs(now - startDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    document.getElementById('daysCount').innerText = diffDays;
-    document.getElementById('hoursCount').innerText = diffDays * 24;
+    // Dynamic Days Counter (Born: 4 Sept 2001, 6:00 PM)
+const birthDate = new Date('2001-09-04T18:00:00');
+const now = new Date();
+
+const diffTime = now - birthDate;
+const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+const diffYears = now.getFullYear() - birthDate.getFullYear() -
+  (now.getMonth() < 8 || (now.getMonth() === 8 && now.getDate() < 4) ||
+   (now.getMonth() === 8 && now.getDate() === 4 && now.getHours() < 18) ? 1 : 0);
+
+document.getElementById('daysCount').innerText = diffDays.toLocaleString();
+document.getElementById('hoursCount').innerText = diffHours.toLocaleString();
+
+// Third counter becomes age
+document.querySelectorAll('.counter-number')[2].innerText = diffYears + ' 🎂';
+document.querySelectorAll('.counter-label')[2].innerText = 'Years Loved';
 
     // Audio Player with Autoplay Handling & Jukebox Panel Toggle
     const music = document.getElementById('bgMusic');
@@ -1252,10 +1263,11 @@
 
     // Wish Jar
     const secretNotes = [
-      "💌 'Your smile is literally the warmest thing in the world!'",
-      "🌸 'May your year ahead be filled with zero stress and endless treats!'",
-      "✨ 'Thank you for making every ordinary day feel extraordinary.'",
-      "💫 'Never lose that cute, chaotic, beautiful sparkle of yours!'"
+      "💌 'I want us to be like what we used to be before'",
+      "💫 'Never lose that cute, chaotic, beautiful sparkle of yours!'",
+      "🌸 'I don’t miss the old days… I miss **us** in those days — a little crazy, a little naughty, and completely addicted to each other.",
+      "✨ 'Every time I think of the old us, I realize my favorite habit was always flirting with you like I was falling for you for the first time'",
+      
     ];
 
     function pullSecretNote() {
