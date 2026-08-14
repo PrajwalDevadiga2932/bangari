@@ -278,7 +278,10 @@
   </style>
 </head>
 <body>
-
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="music/count-on-me.mp3" type="audio/mpeg">
+  </audio>
   <div class="container">
     <div class="header">
       <title>Official Mischief Clearance 🎀</title>
@@ -355,7 +358,7 @@
         options: [
           { text: "10-second tight bear hug 🤗", img: "images/cat.gif" },
           { text: "Forehead kiss + holding hands all night 🤝", img: "images/forehead-kiss.gif" },
-          { text: "Whispering 3 nice compliments in my ear 🤫", img: "images/tax_whisper.jpg" },
+          { text: "Whispering 3 nice compliments in my ear 🤫", img: "images/gal-gadot-ww.gif" },
           { text: "All of the above + unlimited cuddle pass 💖", img: "images/cheek-lips.webp" }
         ]
       }
@@ -502,7 +505,21 @@
     }
 
     // Initialize Quiz
-    loadQuestion();
+    // Initialize Quiz
+loadQuestion();
+
+// Auto-play background music after first interaction
+const bgMusic = document.getElementById('bgMusic');
+bgMusic.volume = 0.35; // 35% volume
+
+function startMusic() {
+  bgMusic.play().catch(() => {});
+  document.removeEventListener('click', startMusic);
+  document.removeEventListener('touchstart', startMusic);
+}
+
+document.addEventListener('click', startMusic);
+document.addEventListener('touchstart', startMusic);
   </script>
 </body>
 </html>
